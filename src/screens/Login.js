@@ -42,8 +42,12 @@ export default class Login extends React.Component {
           </Form>
         </View>
         <View style={styles.buttons}>
-          <CustomButton onPress={this.moveBackground} text='LOG IN'/>
-          <CustomButton onPress={this.moveBackground} text='REGISTER'/>
+          <CustomButton onPress={this.moveBackground}>
+            <Text style={styles.text}>LOG IN</Text>
+          </CustomButton>
+          <CustomButton onPress={this.moveBackground}>
+            <Text style={styles.text}>LOG IN</Text>
+          </CustomButton>
         </View>
       </View>
     )
@@ -74,5 +78,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingBottom: hp(5)
+  },
+  text: {
+    flex: 1,
+    fontSize: hp(2),
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#fff'
   }
 })

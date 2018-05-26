@@ -12,7 +12,7 @@ export default class CustomButton extends React.Component {
   render() {
     return (
       <Button style={styles.button} onPress={this.props.onPress}>
-        <Text style={styles.text}>{this.props.text}</Text>
+        {this.props.children}
       </Button>
     )
   }
