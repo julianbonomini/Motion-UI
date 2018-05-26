@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions, Animated, Easing } from 'react-native'
-import { Button, Form, Item, Label, Input } from 'native-base'
+import { Form, Item, Label, Input } from 'native-base'
 import { wp, hp } from '../utils/screen'
+import CustomButton from '../components/CustomButton'
 
 export default class Login extends React.Component {
 
@@ -41,12 +42,8 @@ export default class Login extends React.Component {
           </Form>
         </View>
         <View style={styles.buttons}>
-          <Button onPress={this.moveBackground}>
-            <Text>Movete mierda</Text>
-          </Button>
-          <Button onPress={this.moveBackground}>
-            <Text>Movete mierda</Text>
-          </Button>
+          <CustomButton onPress={this.moveBackground} text='LOG IN'/>
+          <CustomButton onPress={this.moveBackground} text='REGISTER'/>
         </View>
       </View>
     )
@@ -76,6 +73,6 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     justifyContent: 'flex-end',
-    paddingBottom: hp(8)
+    paddingBottom: hp(5)
   }
 })
