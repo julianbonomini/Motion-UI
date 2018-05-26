@@ -1,18 +1,7 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions, Animated, Easing } from 'react-native'
-import { Button } from 'native-base'
-
-// const wp = percent => {
-//   const width = Dimensions.get('window').width
-//   return (percent * width) / 100
-// }
-
-// const hp = percent => {
-//   const height = Dimensions.get('window').height
-//   return (percent * height) / 100
-// }
-
-import {wp, hp} from '../utils/screen'
+import { Button, Form, Item, Label, Input } from 'native-base'
+import { wp, hp } from '../utils/screen'
 
 export default class Login extends React.Component {
 
@@ -37,13 +26,28 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>NEVER STOP HIKING</Text>
         <Animated.Image style={[styles.image, { top: this.state.top }]} source={require('../assets/Backgrounds/Mountains.png')} />
-        <Button onPress={this.moveBackground}>
-          <Text>
-            Movete mierda
-          </Text>
-        </Button>
+        <Text style={styles.title}>NEVER STOP HIKING</Text>
+        <View style={styles.form}>
+          <Form>
+            <Item floatingLabel>
+              <Label>Username</Label>
+              <Input />
+            </Item>
+            <Item floatingLabel last>
+              <Label>Password</Label>
+              <Input secureTextEntry={true} />
+            </Item>
+          </Form>
+        </View>
+        <View style={styles.buttons}>
+          <Button onPress={this.moveBackground}>
+            <Text>Movete mierda</Text>
+          </Button>
+          <Button onPress={this.moveBackground}>
+            <Text>Movete mierda</Text>
+          </Button>
+        </View>
       </View>
     )
   }
@@ -51,14 +55,27 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
-    paddingTop: 30
+    paddingTop: 45,
+    flexDirection: 'column'
   },
   image: {
     width: wp(105),
     position: 'absolute'
   },
   title: {
-    fontSize: 100
+    fontSize: 50,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  form: {
+    width: wp(80),
+    marginTop: hp(3)
+  },
+  buttons: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: hp(8)
   }
 })
