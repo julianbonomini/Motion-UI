@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: '#fff',
     borderWidth: 3,
-    width: wp(80),
     height: hp(6),
     marginBottom: hp(2),
     borderRadius: hp(10)
