@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions, Animated, Easing, TouchableOpacity } from 'react-native'
-import { Form, Item, Label, Input, Button, Icon } from 'native-base'
+import { Form, Item, Label, Input, Button, Icon, Spinner } from 'native-base'
 import { wp, hp } from '../utils/screen'
+import RealEasing from 'easing-functions'
 
 const ANIMATION_TIME = 500
 
@@ -10,7 +11,7 @@ export default class Login extends React.Component {
   constructor() {
     super()
     this.state = {
-      loading: false,
+      loading: false
     }
     this.setAnimatedValues()
   }
@@ -28,12 +29,24 @@ export default class Login extends React.Component {
       registerButtonWidth: new Animated.Value(wp(80)),
       iconPosition: new Animated.Value(hp(120)),
       formLabelColors: new Animated.Value(0),
-      spinValue: new Animated.Value(0)
+      spinValue: new Animated.Value(0),
+      loginWidthButton: new Animated.Value(wp(80))
     }
   }
 
   login = () => {
     this.setState({ loading: true })
+
+    Animated.timing(
+      this.animatedValues.loginWidthButton,
+      {
+        toValue: wp(25),
+        duration: 1000,
+        easing: RealEasing.Exponential.Out
+      }
+    ).start()
+
+    this.props.navigation.navigate('CreditCard')
   }
 
   goToRegister = () => {
@@ -213,7 +226,18 @@ export default class Login extends React.Component {
   }
 
   register = () => {
-    console.log('asd')
+    this.setState({ loading: true })
+
+    Animated.timing(
+      this.animatedValues.loginWidthButton,
+      {
+        toValue: wp(25),
+        duration: 1000,
+        easing: RealEasing.Exponential.Out
+      }
+    ).start()
+
+    this.props.navigation.navigate('CreditCard')
   }
 
   render() {
@@ -258,9 +282,12 @@ export default class Login extends React.Component {
             </Form>
           </View>
         </View>
-        <Animated.View style={[styles.loginButton, { opacity: this.animatedValues.loginOpacity, top: this.animatedValues.loginPosition, width: wp(80) }]}>
-          <Button style={[styles.button, { borderWidth: 3 }]} onPress={this.backToLogin}>
-            <Text style={styles.text}>LOG IN</Text>
+        <Animated.View style={[styles.loginButton, { opacity: this.animatedValues.loginOpacity, top: this.animatedValues.loginPosition, width: this.animatedValues.loginWidthButton }]}>
+          <Button style={[styles.button, { borderWidth: 3 }]} onPress={this.login}>
+            {this.state.loading ?
+              <Spinner style={{ flex: 1 }} color='white' /> :
+              <Text style={styles.text}>LOG IN</Text>
+            }
           </Button>
         </Animated.View>
         <Animated.View style={[styles.register, { top: this.animatedValues.registerPosition }]}>
@@ -268,9 +295,12 @@ export default class Login extends React.Component {
             <Animated.Text style={[styles.text, { fontSize: this.animatedValues.registrationTitleFontSize }]}>REGISTER</Animated.Text>
           </TouchableOpacity>
         </Animated.View>
-        <Animated.View style={[styles.loginButton, { top: this.animatedValues.registerButtonPositon, width: this.animatedValues.registerButtonWidth }]}>
+        <Animated.View style={[styles.loginButton, { top: this.animatedValues.registerButtonPositon, width: this.animatedValues.loginWidthButton }]}>
           <Button style={[styles.button, { borderWidth: 3 }]} onPress={this.register}>
-            <Text style={styles.text}>REGISTER</Text>
+            {this.state.loading ?
+              <Spinner style={{ flex: 1 }} color='white' /> :
+              <Text style={styles.text}>REGISTER</Text>
+            }
           </Button>
         </Animated.View>
       </View>
