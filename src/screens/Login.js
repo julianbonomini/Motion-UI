@@ -13,7 +13,6 @@ export default class Login extends React.Component {
       loading: false,
     }
     this.setAnimatedValues()
-    this.spinValue = new Animated.Value(0)
   }
 
   setAnimatedValues = () => {
@@ -28,6 +27,8 @@ export default class Login extends React.Component {
       registerButtonPositon: new Animated.Value(hp(190)),
       registerButtonWidth: new Animated.Value(wp(80)),
       iconPosition: new Animated.Value(hp(120)),
+      formLabelColors: new Animated.Value(0),
+      spinValue: new Animated.Value(0)
     }
   }
 
@@ -104,15 +105,21 @@ export default class Login extends React.Component {
             easing: Easing.inOut(Easing.ease)
           }
         ),
-
+        Animated.timing(
+          this.animatedValues.formLabelColors,
+          {
+            toValue: 1,
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        )
       ])
     ]).start()
   }
 
   backToLogin = () => {
-    this.spinValue.setValue(0)
     Animated.timing(
-      this.spinValue,
+      this.animatedValues.spinValue,
       {
         toValue: 1,
         duration: 1000,
@@ -126,9 +133,13 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const spin = this.spinValue.interpolate({
+    const spin = this.animatedValues.spinValue.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '270deg']
+    })
+    const labelColor = this.animatedValues.formLabelColors.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['#000', '#fff']
     })
     return (
       <View style={styles.container}>
@@ -137,21 +148,21 @@ export default class Login extends React.Component {
         <View style={styles.contentContainer}>
           <View style={[styles.form]}>
             <Form>
-              <Item floatingLabel>
-                <Label>Username</Label>
+              <Item style={{ alignItems: 'flex-start', marginBottom: 20 }} stackedLabel>
+                <Animated.Text style={{ color: labelColor }}>Username</Animated.Text>
                 <Input />
               </Item>
-              <Item floatingLabel>
-                <Label>Password</Label>
+              <Item style={{ alignItems: 'flex-start', marginBottom: 20 }} stackedLabel>
+                <Animated.Text style={{ color: labelColor }}>Password</Animated.Text>
                 <Input secureTextEntry={true} />
               </Item>
               <Animated.View style={{ opacity: this.animatedValues.registrationOpacity }}>
-                <Item floatingLabel>
-                  <Label>Confirm Password</Label>
+                <Item style={{ alignItems: 'flex-start', marginBottom: 20 }} stackedLabel>
+                  <Animated.Text style={{ color: labelColor }}>Confirm Password</Animated.Text>
                   <Input secureTextEntry={true} />
                 </Item>
-                <Item floatingLabel>
-                  <Label>Email</Label>
+                <Item style={{ alignItems: 'flex-start', marginBottom: 20 }} stackedLabel>
+                  <Animated.Text style={{ color: labelColor }}>Email</Animated.Text>
                   <Input />
                 </Item>
               </Animated.View>
