@@ -295,7 +295,7 @@ export default class Login extends React.Component {
             <Animated.Text style={[styles.text, { fontSize: this.animatedValues.registrationTitleFontSize }]}>REGISTER</Animated.Text>
           </TouchableOpacity>
         </Animated.View>
-        <Animated.View style={[styles.loginButton, { top: this.animatedValues.registerButtonPositon, width: this.animatedValues.registerButtonWidth }]}>
+        <Animated.View style={[styles.loginButton, { top: this.animatedValues.registerButtonPositon, width: this.animatedValues.loginWidthButton }]}>
           <Button style={[styles.button, { borderWidth: 3 }]} onPress={this.register}>
             {this.state.loading ?
               <Spinner style={{ flex: 1 }} color='white' /> :
