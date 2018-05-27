@@ -90,7 +90,7 @@ export default class Login extends React.Component {
         Animated.timing(
           this.animatedValues.iconPosition,
           {
-            toValue: hp(6),
+            toValue: hp(5),
             duration: ANIMATION_TIME,
             easing: Easing.inOut(Easing.ease)
           }
@@ -118,14 +118,98 @@ export default class Login extends React.Component {
   }
 
   backToLogin = () => {
-    Animated.timing(
-      this.animatedValues.spinValue,
-      {
-        toValue: 1,
-        duration: 1000,
-        easing: Easing.linear
-      }
-    ).start()
+    Animated.sequence([
+      Animated.timing(
+        this.animatedValues.spinValue,
+        {
+          toValue: 1,
+          duration: ANIMATION_TIME / 2,
+          easing: Easing.linear
+        }
+      ),
+      Animated.parallel([
+        Animated.timing(
+          this.animatedValues.loginOpacity,
+          {
+            toValue: 1,
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.top,
+          {
+            toValue: 350,
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.registerPosition,
+          {
+            toValue: hp(90),
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.registrationTitleFontSize,
+          {
+            toValue: hp(2),
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.loginPosition,
+          {
+            toValue: hp(80),
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.registerButtonPositon,
+          {
+            toValue: hp(190),
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.iconPosition,
+          {
+            toValue: hp(120),
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.registrationOpacity,
+          {
+            toValue: 0,
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        ),
+        Animated.timing(
+          this.animatedValues.formLabelColors,
+          {
+            toValue: 0,
+            duration: ANIMATION_TIME,
+            easing: Easing.inOut(Easing.ease)
+          }
+        )
+      ]),
+      Animated.timing(
+        this.animatedValues.spinValue,
+        {
+          toValue: 0,
+          duration: 100,
+          easing: Easing.inOut(Easing.ease)
+        }
+      )
+    ]).start()
   }
 
   register = () => {
@@ -143,7 +227,12 @@ export default class Login extends React.Component {
     })
     return (
       <View style={styles.container}>
-        <Animated.Image style={[styles.image, { top: this.animatedValues.top, transform: [{ rotate: spin }] }]} source={require('../assets/Backgrounds/Mountains.png')} />
+        <Animated.Image style={[styles.image, { top: this.animatedValues.top }]} source={require('../assets/Backgrounds/Mountains.png')} />
+        <Animated.View style={[styles.iconContainer, { top: this.animatedValues.iconPosition, transform: [{ rotate: spin }] }]}>
+          <TouchableOpacity onPress={this.backToLogin}>
+            <Icon ios='ios-arrow-back' android="md-arrow-back" style={{ fontSize: 60, color: 'white' }} />
+          </TouchableOpacity>
+        </Animated.View>
         <Animated.Text style={[styles.title, { opacity: this.animatedValues.loginOpacity }]}>NEVER STOP HIKING</Animated.Text>
         <View style={styles.contentContainer}>
           <View style={[styles.form]}>
@@ -237,5 +326,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#fff'
+  },
+  iconContainer: {
+    position: 'absolute',
+    left: wp(8),
   }
 })
