@@ -2,7 +2,7 @@ import { StackNavigator } from 'react-navigation'
 import Login from '../screens/Login'
 
 const RootNaviator = StackNavigator({
-  Home: {
+  Login: {
     screen: Login,
   }
 }, {
