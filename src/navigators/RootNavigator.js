@@ -3,12 +3,12 @@ import Login from '../screens/Login'
 import CreditCard from '../screens/CreditCard'
 
 const RootNaviator = StackNavigator({
-  CreditCard: {
-    screen: CreditCard
-  },
   Login: {
     screen: Login,
   },
+  CreditCard: {
+    screen: CreditCard
+  }
 }, {
   headerMode: 'none'
 })
